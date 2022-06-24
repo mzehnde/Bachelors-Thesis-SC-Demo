@@ -1,10 +1,49 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from '../src/Components/Home'
+import Reward from '../src/Components/Reward'
+import {
+    BrowserRouter as Router,
+        Routes,
+        Route,
+        Link
+} from 'react-router-dom';
+
+/* DOC:
+LINK: creates a Link
+    to: refers to where link should navigate to
+ROUTE: establish the link between component’s UI and the URL
+    exact: renders only exact /reward page (not for example /reward/10)
+    path: pathname assigned to component
+    element: refers the component that's rendered when matching its path
+ROUTES: to render a single component -> iterates over the routes and renders first one that matches
+*
+* */
+
+
 
 class App extends Component {
-
-    state = {};
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <ul>
+                        <li>
+                            <Link to="/reward">Reward</Link>
+                        </li>
+                    </ul>
+                    <Routes>
+                        <Route exact path='/' element={< Home />}></Route>
+                        <Route exact path='/reward' element={< Reward />}></Route>
+                    </Routes>
+                </div>
+            </Router>
+        );
+    }
+}
+export default App;
+//Fetching from Backend:
+ /*   state = {};
 
     componentDidMount() {
         this.dadJokes()
@@ -33,27 +72,7 @@ class App extends Component {
     }
 }
 
-export default App;
+export default App;*/
 
-/*function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}*/
 
 
