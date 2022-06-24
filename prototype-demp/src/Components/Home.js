@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../helpers/layout';
 import {Button} from '../helpers/button';
-import { useNavigate } from "react-router-dom";
 
 
 export const FormContainer = styled.div`
@@ -63,7 +62,7 @@ class Home extends React.Component{
             email:null
         };
     }
-    
+
     handleInputChange(key, value) {
         // Example: if the key is username, this statement is the equivalent to the following one:
         // this.setState({'username': value});
