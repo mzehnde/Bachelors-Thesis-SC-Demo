@@ -1,2 +1,4 @@
+com/example/demo/Repositories/PartnerRepository.class
 com/example/demo/DemoApplication.class
 com/example/demo/DadJokesController.class
+com/example/demo/Entities/Partner.class
