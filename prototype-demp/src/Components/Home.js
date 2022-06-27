@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../helpers/layout';
 import {Button} from '../helpers/button';
+import { api, handleError } from '../helpers/api';
 
 
 export const FormContainer = styled.div`
@@ -71,6 +72,25 @@ class Home extends React.Component{
 
     componentDidMount() {}
 
+    async sendEmail() {
+
+        try{
+            const requestBody = JSON.stringify({
+                email: this.state.email
+            });
+
+            const response = await api.post('/test/sendMail', requestBody);
+
+            //this.props.history.push(`/reward`);
+            console.log(response);
+
+        } catch (error){
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+    }
+
+
+
     render(){
         return (
             <BaseContainer>
@@ -88,7 +108,7 @@ class Home extends React.Component{
                                 disabled={!this.state.email}
                                 width="50%"
                                 onClick={() => {
-                                    window.location.href='/reward';
+                                    this.sendEmail();
                                 }}
                             >
                             Login
