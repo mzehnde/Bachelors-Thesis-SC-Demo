@@ -72,11 +72,13 @@ class Home extends React.Component{
 
     componentDidMount() {}
 
+    //To add: pass url path --> id of partner to find correct reward
     async sendEmail() {
 
         try{
             const requestBody = JSON.stringify({
-                email: this.state.email
+                emailAddress: this.state.email,
+                partner: 1
             });
 
             const response = await api.post('/test/sendMail', requestBody);

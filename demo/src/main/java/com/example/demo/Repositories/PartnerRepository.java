@@ -6,3 +6,4 @@ import com.example.demo.Entities.Partner;
 
 public interface PartnerRepository extends CrudRepository<Partner, Long>{
 }
+

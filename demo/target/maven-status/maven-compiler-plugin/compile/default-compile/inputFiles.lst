@@ -1,4 +1,11 @@
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/REST/PartnerPostDTO.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Entities/Reward.java
 /Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Repositories/PartnerRepository.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/SendRewardController.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Repositories/RewardRepository.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Mail.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/REST/UserPostDTO.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/REST/DTOMapper.java
 /Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Entities/Partner.java
 /Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/DemoApplication.java
-/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/DadJokesController.java
+/Users/maxzehnder/Desktop/Prototype/proto-demo/demo/src/main/java/com/example/demo/Entities/User.java

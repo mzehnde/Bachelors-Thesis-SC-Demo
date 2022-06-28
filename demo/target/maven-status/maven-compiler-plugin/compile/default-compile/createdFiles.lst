@@ -1,4 +1,10 @@
-com/example/demo/Repositories/PartnerRepository.class
+com/example/demo/REST/DTOMapperImpl.class
+com/example/demo/Repositories/RewardRepository.class
+com/example/demo/REST/DTOMapper.class
+com/example/demo/Entities/Reward.class
+com/example/demo/Entities/User.class
 com/example/demo/DemoApplication.class
-com/example/demo/DadJokesController.class
+com/example/demo/REST/PartnerPostDTO.class
 com/example/demo/Entities/Partner.class
+com/example/demo/Repositories/PartnerRepository.class
+com/example/demo/REST/UserPostDTO.class

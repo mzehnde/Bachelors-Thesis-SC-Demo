@@ -3,24 +3,25 @@ package com.example.demo.Entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Partner")
 public class Partner {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String Name;
 
-    private String QR_Code_Path;
+    private Integer QR_Code_Path;
 
     public Partner() { }
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -31,16 +32,15 @@ public class Partner {
         this.Name = name;
     }
 
-    public String getQR_path() {
+    public Integer getQR_path() {
         return QR_Code_Path;
     }
 
-    public void setQR_path(String QR_path) {
+    public void setQR_path(Integer QR_path) {
         this.QR_Code_Path = QR_path;
     }
 
-    public Partner(Long id, String name, String QR_path) {
-        this.Id = id;
+    public Partner(String name, Integer QR_path) {
         this.Name = name;
         this.QR_Code_Path = QR_path;
     }

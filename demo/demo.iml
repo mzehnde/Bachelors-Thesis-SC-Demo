@@ -9,7 +9,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="demo" />
+          <factory-entry name="demo" value="cde293de-514a-491d-bd90-75a0da920e3c" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -123,5 +123,10 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.20" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.20" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.29" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:javax.mail-api:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mapstruct:mapstruct:1.5.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.mapstruct:mapstruct-processor:1.5.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
   </component>
 </module>
