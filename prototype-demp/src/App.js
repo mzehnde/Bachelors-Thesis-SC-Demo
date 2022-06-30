@@ -27,10 +27,10 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
+                    <h1>
+                        Collect Your Reward
+                    </h1>
                     <ul>
-                        <li>
-                            <Link to="/reward">Reward</Link>
-                        </li>
                     </ul>
                     <Routes>
                         <Route exact path='/' element={< Home />}></Route>

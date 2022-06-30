@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../helpers/layout';
-import {Button} from '../helpers/button';
+import SendIcon from '@mui/icons-material/Send';
+//import {Button} from '../helpers/button';
 import { api, handleError } from '../helpers/api';
-
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import {Avatar} from "@material-ui/core";
+import EmailIcon from '@mui/icons-material/Email';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export const FormContainer = styled.div`
   margin-top: 2em;
@@ -74,6 +80,8 @@ class Home extends React.Component{
 
     //To add: pass url path --> id of partner to find correct reward
     async sendEmail() {
+        console.log(this.state.email)
+
 
         try{
             const requestBody = JSON.stringify({
@@ -93,7 +101,44 @@ class Home extends React.Component{
 
 
 
+
     render(){
+        const paperStyle = {padding: 10, height:'35vh', width:230, margin: '20px auto' }
+        const mailStyle = {position: "center"}
+        const buttonStyle = {position:"center"}
+        return (
+            <Grid alignItems="center">
+                <Paper elevation={10} style={paperStyle}>
+                    <EmailIcon fontSize="large" style={mailStyle}>
+
+                    </EmailIcon>
+                    <h2>
+                        Register to receive a Reward
+                    </h2>
+                    <TextField label={"E-mail"}
+                               placeholder={"Enter E-Mail here..."}
+                               fullWidth required
+                               onChange={e => {
+                                   this.handleInputChange('email', e.target.value)}}
+                    >
+                    </TextField>
+                    <Button
+                        onClick={() => {
+                            this.sendEmail();
+                        }}
+                        disabled={!this.state.email}
+                        style={buttonStyle}
+                        type = 'submit' color = 'pink' variant = 'contained' endIcon={<SendIcon />}>
+                        Claim Reward
+                    </Button>
+                </Paper>
+            </Grid>
+        );
+
+    }
+
+
+    /*render(){
         return (
             <BaseContainer>
                 <FormContainer>
@@ -120,7 +165,7 @@ class Home extends React.Component{
                 </FormContainer>
             </BaseContainer>
         );
-    }
+    }*/
 }
 
 export default Home
