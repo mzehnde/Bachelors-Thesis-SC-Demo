@@ -10,6 +10,7 @@ import {Avatar} from "@material-ui/core";
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { useFormik } from 'formik';
 
 export const FormContainer = styled.div`
   margin-top: 2em;
@@ -62,6 +63,7 @@ export const ButtonContainer = styled.div`
 `;
 
 
+
 class Home extends React.Component{
     constructor() {
         super();
@@ -70,13 +72,32 @@ class Home extends React.Component{
         };
     }
 
+
     handleInputChange(key, value) {
         // Example: if the key is username, this statement is the equivalent to the following one:
         // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 
+
     componentDidMount() {}
+
+    emailValidation(){
+        const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(!this.state.email || regex.test(this.state.email) === false){
+            this.setState({
+                error: "Email is not valid"
+            });
+            return false;
+        }
+        return true;
+    }
+    onSubmit(){
+        if(this.emailValidation()){
+            console.log(this.state);
+            this.sendEmail();
+        }
+    }
 
     //To add: pass url path --> id of partner to find correct reward
     async sendEmail() {
@@ -102,6 +123,7 @@ class Home extends React.Component{
 
 
 
+
     render(){
         const paperStyle = {padding: 10, height:'35vh', width:230, margin: '20px auto' }
         const mailStyle = {position: "center"}
@@ -122,11 +144,13 @@ class Home extends React.Component{
                                    this.handleInputChange('email', e.target.value)}}
                     >
                     </TextField>
+                    <span className="text-danger" >{this.state.error}</span>
                     <Button
-                        onClick={() => {
+                        /*onClick={() => {
                             this.sendEmail();
-                        }}
-                        disabled={!this.state.email}
+                        }}*/
+                        onClick={()=>this.onSubmit()}
+                        //disabled={!this.state.email}
                         style={buttonStyle}
                         type = 'submit' color = 'pink' variant = 'contained' endIcon={<SendIcon />}>
                         Claim Reward
