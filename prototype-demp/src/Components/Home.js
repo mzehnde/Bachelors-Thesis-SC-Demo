@@ -28,9 +28,10 @@ import Button from "@material-ui/core/Button";
 //5. Test again
 
 //OTHER THINGS
-//1. debug db warning
-//2. new gmail account with "APP name"
-//3. scale for phone
+//1. add reward descriptions for Mail!!!
+//2. debug db warning
+//3. new gmail account with "APP name"
+//4. scale for phone
 
 
 class Home extends React.Component{

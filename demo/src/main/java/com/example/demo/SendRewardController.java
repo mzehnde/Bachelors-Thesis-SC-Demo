@@ -67,7 +67,7 @@ public class SendRewardController {
         Reward reward = rewardToGiveOut.get(0);
         Mail email = new Mail(user.getEmailAddress(), "claimyourawesomereward@gmail.com", reward.getImage(), reward.getLocation());
         email.sendEmail();
-        return reward.getImage();
+        return reward.getLocation();
         //return "Email sent";
     }
 

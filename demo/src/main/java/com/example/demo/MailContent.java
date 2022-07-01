@@ -2,6 +2,8 @@ package com.example.demo;
 
 //Insert location and image in correct place in html content
 //Access correct location and image from db (from correct reward)
+//INTO LOCATION zeile 281
+//<span style=\"font-size:24px;color:#003188;\">" + this.location + "</span>
 
 public class MailContent {
     private String location;
@@ -276,7 +278,7 @@ public class MailContent {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:20px;\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"font-family: sans-serif\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"txtTinyMce-wrapper\" style=\"font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2; font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;\">\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 16px; text-align: center;\"><span style=\"font-size:24px;color:#003188;\">" + this.location + "</span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <h1> " + this.location+ "\n"+
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
