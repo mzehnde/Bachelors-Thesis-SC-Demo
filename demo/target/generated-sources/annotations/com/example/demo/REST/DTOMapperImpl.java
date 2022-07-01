@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-28T17:20:37+0200",
+    date = "2022-07-01T17:30:24+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 15 (Oracle Corporation)"
 )
 public class DTOMapperImpl implements DTOMapper {
@@ -34,11 +34,11 @@ public class DTOMapperImpl implements DTOMapper {
 
         emailAddress = userPostDTO.getEmailAddress();
 
-        Long partner = null;
+        String partner = null;
 
         User user = new User( emailAddress, partner );
 
-        user.setPartner( userPostDTO.getPartner() );
+        user.setPartner_QR_Code( userPostDTO.getPartner_QR_Code() );
 
         return user;
     }

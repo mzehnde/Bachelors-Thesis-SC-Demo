@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface RewardRepository extends CrudRepository<Reward, Long> {
 
 
-    public List<Reward> findByPartnerId(Integer partnerId);
+    public List<Reward> findByPartner(Integer partnerId);
+
+    List<Reward> findByQrcodepartner(String partner_qr_code);
 }
 

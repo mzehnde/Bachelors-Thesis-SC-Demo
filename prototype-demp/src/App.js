@@ -35,6 +35,7 @@ class App extends Component {
                     <Routes>
                         <Route exact path='/' element={< Home />}></Route>
                         <Route exact path='/reward' element={< Reward />}></Route>
+                        <Route exact path='/1' element={< Home />}></Route>
                     </Routes>
                 </div>
             </Router>

@@ -14,6 +14,6 @@ public interface DTOMapper {
     Partner convertPartnerPostDTOtoEntity(PartnerPostDTO partnerPostDTO);
 
     @Mapping(source = "emailAddress", target = "emailAddress")
-    @Mapping(source = "partner", target = "partner")
+    @Mapping(source = "partner_QR_Code", target = "partner_QR_Code")
     User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
 }

@@ -2,16 +2,14 @@ package com.example.demo.REST;
 
 public class UserPostDTO {
     private String emailAddress;
+    private String partner_QR_Code;
 
-    public Long getPartner() {
-        return Partner;
+    public String getPartner_QR_Code() {
+        return partner_QR_Code;
     }
-
-    public void setPartner(Long partner) {
-        Partner = partner;
+    public void setPartner_QR_Code(String partner) {
+        partner_QR_Code = partner;
     }
-
-    private Long Partner;
 
     public String getEmailAddress() {
         return emailAddress;

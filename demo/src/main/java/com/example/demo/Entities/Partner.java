@@ -7,14 +7,16 @@ import javax.persistence.*;
 public class Partner {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "Id")
     private Long id;
 
+    @Column (name = "Name")
     private String Name;
 
-    private Integer QR_Code_Path;
+    @Column (name = "QRCode")
+    private Integer QRCode;
 
     public Partner() { }
-
 
     public Long getId() {
         return id;
@@ -33,15 +35,15 @@ public class Partner {
     }
 
     public Integer getQR_path() {
-        return QR_Code_Path;
+        return QRCode;
     }
 
-    public void setQR_path(Integer QR_path) {
-        this.QR_Code_Path = QR_path;
+    public void setQR_path(Integer QRCode) {
+        this.QRCode = QRCode;
     }
 
-    public Partner(String name, Integer QR_path) {
+    public Partner(String name, Integer QRCode) {
         this.Name = name;
-        this.QR_Code_Path = QR_path;
+        this.QRCode = QRCode;
     }
 }

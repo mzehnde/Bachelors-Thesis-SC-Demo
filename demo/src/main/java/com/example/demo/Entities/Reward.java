@@ -14,16 +14,35 @@ public class Reward {
     private String name;
 
     @Column(name = "Partner")
-    private Integer partnerId;
+    private Integer partner;
 
-    public Reward(String name, Integer PartnerId) {
+    @Column(name = "Image")
+    private String image;
+
+    @Column(name = "Location")
+    private String location;
+
+    @Column(name = "qrcodereward")
+    private String qrcodereward;
+
+    @Column(name = "qrcodepartner")
+    private String qrcodepartner;
+
+    public Reward(String name, Integer Partner) {
         this.name = name;
-        partnerId = PartnerId;
+        partner = Partner;
     }
 
     public Reward() {
     }
 
+    public String getQRCodePartner() {
+        return qrcodepartner;
+    }
+
+    public void setQRCodePartner(String QRCodePartner) {
+        this.qrcodepartner = QRCodePartner;
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +60,35 @@ public class Reward {
         this.name = name;
     }
 
-    public Integer getPartnerId() {
-        return partnerId;
+    public Integer getPartner() {
+        return partner;
     }
 
     public void setPartnerId(Integer PartnerId) {
-        partnerId = PartnerId;
+        partner = PartnerId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getQRCodeReward() {
+        return qrcodereward;
+    }
+
+    public void setQRCodeReward(String QRCodeReward) {
+        this.qrcodereward = QRCodeReward;
     }
 }

@@ -5,16 +5,21 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
+
 public class Mail {
     private String password;
     private String username;
     private String recipient;
     private String sender;
+    private String image;
+    private String location;
 
 
-    public Mail(String recipient, String sender) {
+    public Mail(String recipient, String sender, String image, String location) {
         this.recipient = recipient;
         this.sender = sender;
+        this.image = image;
+        this.location = location;
     }
 
 
@@ -52,6 +57,8 @@ public class Mail {
 
     public void sendEmail() {
         String to = recipient;
+        MailContent mailContent = new MailContent(this.location, this.image);
+        mailContent.generateHTMLContent();
 
         // Sender's email ID needs to be mentioned
         String from = sender;
@@ -61,6 +68,7 @@ public class Mail {
 
         // Get system properties
         Properties properties = System.getProperties();
+
 
         // Setup mail server
         properties.put("mail.smtp.host", host);
@@ -93,10 +101,13 @@ public class Mail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject("Free Reward");
 
             // Now set the actual message
             message.setText("This is actual message");
+            message.setContent(mailContent.getMailContent(), "text/html");
+            //message.setContent("<h1>This is actual message embedded in HTML tags</h1>" +
+                            //this.image, "text/html");
 
             System.out.println("sending...");
             // Send message
@@ -108,33 +119,7 @@ public class Mail {
 
     }
 }
-        /*String host = "smtp.gmail.com";
 
-        // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.setProperty("mail.smtp.host", host);
-
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(sender));
-
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Free Reward");
-
-            // Now set the actual message
-            message.setText("You can find your free reward attached. Claim it there....");
-            Transport.send(message);
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
-    }*/
 
 
 

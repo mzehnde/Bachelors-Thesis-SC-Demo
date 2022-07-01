@@ -1,67 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../helpers/layout';
 import SendIcon from '@mui/icons-material/Send';
-//import {Button} from '../helpers/button';
 import { api, handleError } from '../helpers/api';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {Avatar} from "@material-ui/core";
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { useFormik } from 'formik';
 
-export const FormContainer = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
+//TODO:
+//LOCALLY:
+//1. create nice html Email
+//2. add info button with explanation
+//3. after button: route /reward --> Email succesfull sent to...
+//4. Backend: create /redeem with QRCodereward URL --> find reward by QRCode (consistent url to db) --> mark as redeemed
+//5. add check if redeemed
+//6. frontend: route reward redemption
+//7. frontend: render form to insert sales
+//8. Backend: add sales generated to correct partner & to correct reward
+//7. Test it locally by populating db with test entries
 
-export const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
+//DEPLOY
+//1. Deploy on heroku --> consider: @origin, proxy, db...
+//2. generate QR Codes and populate DB
+//3. Test it
+//4. Populate with real rewards
+//5. Test again
 
-export const Label = styled.label`
-  color: white;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-`;
-
-export const InputField = styled.input`
-  &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: -4px;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
+//OTHER THINGS
+//1. debug db warning
+//2. new gmail account with "APP name"
+//3. scale for phone
 
 
 class Home extends React.Component{
@@ -72,15 +41,15 @@ class Home extends React.Component{
         };
     }
 
-
     handleInputChange(key, value) {
         // Example: if the key is username, this statement is the equivalent to the following one:
         // this.setState({'username': value});
         this.setState({ [key]: value });
     }
 
-
-    componentDidMount() {}
+    componentDidMount() {
+        console.log(window.location.pathname.substring(1))
+    }
 
     emailValidation(){
         const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -92,6 +61,7 @@ class Home extends React.Component{
         }
         return true;
     }
+
     onSubmit(){
         if(this.emailValidation()){
             console.log(this.state);
@@ -99,15 +69,11 @@ class Home extends React.Component{
         }
     }
 
-    //To add: pass url path --> id of partner to find correct reward
     async sendEmail() {
-        console.log(this.state.email)
-
-
         try{
             const requestBody = JSON.stringify({
                 emailAddress: this.state.email,
-                partner: 1
+                partner_QR_Code: window.location.pathname.substring(1)
             });
 
             const response = await api.post('/test/sendMail', requestBody);
@@ -119,10 +85,6 @@ class Home extends React.Component{
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
     }
-
-
-
-
 
     render(){
         const paperStyle = {padding: 10, height:'35vh', width:230, margin: '20px auto' }
@@ -158,38 +120,7 @@ class Home extends React.Component{
                 </Paper>
             </Grid>
         );
-
     }
-
-
-    /*render(){
-        return (
-            <BaseContainer>
-                <FormContainer>
-                    <Form>
-                        <Label>Email</Label>
-                        <InputField
-                            placeholder="Enter Email here.."
-                            onChange={e => {
-                                this.handleInputChange('email', e.target.value);
-                            }}
-                        />
-                        <ButtonContainer>
-                            <Button
-                                disabled={!this.state.email}
-                                width="50%"
-                                onClick={() => {
-                                    this.sendEmail();
-                                }}
-                            >
-                            Login
-                            </Button>
-                        </ButtonContainer>
-                    </Form>
-                </FormContainer>
-            </BaseContainer>
-        );
-    }*/
 }
 
 export default Home

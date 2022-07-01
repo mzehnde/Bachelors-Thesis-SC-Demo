@@ -61,15 +61,14 @@ public class SendRewardController {
         // searched for correct reward
         // now send Email with Name of that Reward as message to user.email
         User user = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
-        Long PartnerId = user.getPartner();
-        List<Reward> rewardToGiveOut =rewardRepository.findByPartnerId(PartnerId.intValue());
+        String partner_QR_Code = user.getPartner_QR_Code();
+        //Long Partnerid = Long.parseLong(PartnerId);
+        List<Reward> rewardToGiveOut =rewardRepository.findByQrcodepartner(partner_QR_Code);
         Reward reward = rewardToGiveOut.get(0);
-        System.out.println(reward.getName());
-
-
-        Mail email = new Mail(user.getEmailAddress(), "claimyourawesomereward@gmail.com");
+        Mail email = new Mail(user.getEmailAddress(), "claimyourawesomereward@gmail.com", reward.getImage(), reward.getLocation());
         email.sendEmail();
-        return "Email sent";
+        return reward.getImage();
+        //return "Email sent";
     }
 
 
