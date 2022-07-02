@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+//import {withRouter} from  'react-router-dom';
 
 //TODO:
 //LOCALLY:
@@ -64,9 +65,14 @@ class Home extends React.Component{
     }
 
     onSubmit(){
+
         if(this.emailValidation()){
             console.log(this.state);
             this.sendEmail();
+            window.location.href="/reward"
+            //this.props.history.push('/test/reward')
+
+            //history.push("/display");
         }
     }
 
@@ -91,6 +97,7 @@ class Home extends React.Component{
         const paperStyle = {padding: 10, height:'35vh', width:230, margin: '20px auto' }
         const mailStyle = {position: "center"}
         const buttonStyle = {position:"center"}
+
         return (
             <Grid alignItems="center">
                 <Paper elevation={10} style={paperStyle}>
@@ -112,7 +119,8 @@ class Home extends React.Component{
                         /*onClick={() => {
                             this.sendEmail();
                         }}*/
-                        onClick={()=>this.onSubmit()}
+                        onClick={
+                            ()=>this.onSubmit()}
                         //disabled={!this.state.email}
                         style={buttonStyle}
                         type = 'submit' color = 'pink' variant = 'contained' endIcon={<SendIcon />}>
