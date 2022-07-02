@@ -14,11 +14,11 @@ import Button from "@material-ui/core/Button";
 //1. create nice html Email
 //2. add info button with explanation
 //3. after button: route /reward --> Email succesfull sent to...
-//4. Backend: create /redeem with QRCodereward URL --> find reward by QRCode (consistent url to db) --> mark as redeemed
+//4. Backend: create /redeem with QRCodereward URL --> find reward by QRCode (consistent url to db) --> mark as redeemed DONE
 //5. add check if redeemed
-//6. frontend: route reward redemption
-//7. frontend: render form to insert sales
-//8. Backend: add sales generated to correct partner & to correct reward
+//6. frontend: route reward redemption DONE
+//7. frontend: render form to insert sales DONE
+//8. Backend: add sales generated to correct partner & to correct reward DONE
 //7. Test it locally by populating db with test entries
 
 //DEPLOY

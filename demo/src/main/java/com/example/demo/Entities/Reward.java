@@ -28,12 +28,36 @@ public class Reward {
     @Column(name = "qrcodepartner")
     private String qrcodepartner;
 
+    @Column(name = "sales")
+    private String sales;
+
+    @Column(name = "isredeemed")
+    private Boolean isredeemed;
+
+
+
     public Reward(String name, Integer Partner) {
         this.name = name;
         partner = Partner;
     }
 
     public Reward() {
+    }
+
+    public Boolean getIsredeemed() {
+        return isredeemed;
+    }
+
+    public void setIsredeemed(Boolean redeemed) {
+        isredeemed = redeemed;
+    }
+
+    public String getSales() {
+        return sales;
+    }
+
+    public void setSales(String sales) {
+        this.sales = sales;
     }
 
     public String getQRCodePartner() {
@@ -84,11 +108,11 @@ public class Reward {
         this.location = location;
     }
 
-    public String getQRCodeReward() {
+    public String getQrcodereward() {
         return qrcodereward;
     }
 
-    public void setQRCodeReward(String QRCodeReward) {
+    public void setQrcodereward(String QRCodeReward) {
         this.qrcodereward = QRCodeReward;
     }
 }

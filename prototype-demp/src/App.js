@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Home from '../src/Components/Home'
 import Reward from '../src/Components/Reward'
+import Redeem from '../src/Components/Redeem'
 import {
     BrowserRouter as Router,
         Routes,
@@ -36,6 +37,7 @@ class App extends Component {
                         <Route exact path='/' element={< Home />}></Route>
                         <Route exact path='/reward' element={< Reward />}></Route>
                         <Route exact path='/1' element={< Home />}></Route>
+                        <Route exact path='/redeem/1' element={< Redeem />}></Route>
                     </Routes>
                 </div>
             </Router>

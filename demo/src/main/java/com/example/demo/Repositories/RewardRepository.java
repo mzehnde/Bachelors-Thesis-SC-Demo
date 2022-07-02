@@ -12,5 +12,7 @@ public interface RewardRepository extends CrudRepository<Reward, Long> {
     public List<Reward> findByPartner(Integer partnerId);
 
     List<Reward> findByQrcodepartner(String partner_qr_code);
+
+    Reward findByQrcodereward(String qrcodereward);
 }
 

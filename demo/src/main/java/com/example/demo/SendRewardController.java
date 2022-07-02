@@ -3,9 +3,7 @@ package com.example.demo;
 import com.example.demo.Entities.Partner;
 import com.example.demo.Entities.Reward;
 import com.example.demo.Entities.User;
-import com.example.demo.REST.DTOMapper;
-import com.example.demo.REST.PartnerPostDTO;
-import com.example.demo.REST.UserPostDTO;
+import com.example.demo.REST.*;
 import com.example.demo.Repositories.PartnerRepository;
 import com.example.demo.Repositories.RewardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +69,37 @@ public class SendRewardController {
         //return "Email sent";
     }
 
+    //checks if reward was redeemed --> tested
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(path="/isRedeemed") // Map ONLY POST Requests
+    public @ResponseBody Boolean isRedeemed (@RequestBody IsRedeemedGetDTO isRedeemedGetDTO) {
+        Boolean isRedeemed = true;
+        Reward reward = DTOMapper.INSTANCE.convertIsRedeemedGetDTOtoEntity(isRedeemedGetDTO);
+        Reward rewardToCheck = rewardRepository.findByQrcodereward(reward.getQrcodereward());
+        if (rewardToCheck.getIsredeemed() == null){
+            return !isRedeemed;
+        }
+        if (rewardToCheck.getIsredeemed()){
+            return isRedeemed;
+        }
+        else{
+            return !isRedeemed;
+        }
+    }
 
+    //adds sales and marks as redeemed --> tested
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/addSales") // Map ONLY POST Requests
+    public @ResponseBody
+    Boolean addSales (@RequestBody RewardPutDTO rewardPutDTO) {
+        Reward reward = DTOMapper.INSTANCE.convertRewardPutDTOtoEntity(rewardPutDTO);
+        Reward rewardToAddSales = rewardRepository.findByQrcodereward(reward.getQrcodereward());
+
+        rewardToAddSales.setSales(reward.getSales());
+        rewardToAddSales.setIsredeemed(true);
+        rewardRepository.save(rewardToAddSales);
+        return rewardToAddSales.getIsredeemed();
+    }
 
 
 
