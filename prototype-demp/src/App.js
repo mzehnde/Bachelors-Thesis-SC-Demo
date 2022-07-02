@@ -3,6 +3,7 @@ import './App.css';
 import Home from '../src/Components/Home'
 import Reward from '../src/Components/Reward'
 import Redeem from '../src/Components/Redeem'
+import InvalidReward from '../src/Components/InvalidReward'
 import {
     BrowserRouter as Router,
         Routes,
@@ -38,6 +39,7 @@ class App extends Component {
                         <Route exact path='/reward' element={< Reward />}></Route>
                         <Route exact path='/1' element={< Home />}></Route>
                         <Route exact path='/redeem/1' element={< Redeem />}></Route>
+                        <Route exact path='/notvalid' element={< InvalidReward />}></Route>
                     </Routes>
                 </div>
             </Router>

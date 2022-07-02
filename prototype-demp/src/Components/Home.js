@@ -19,6 +19,8 @@ import Button from "@material-ui/core/Button";
 //6. frontend: route reward redemption DONE
 //7. frontend: render form to insert sales DONE
 //8. Backend: add sales generated to correct partner & to correct reward DONE
+//9. Create two tables for reward --> crosspromot and normal --> check with qrcodeurl which repo to search
+//9.1 --> when redeeming --> search through both repos to find --> never same qr url for reward!
 //7. Test it locally by populating db with test entries
 
 //DEPLOY

@@ -34,22 +34,25 @@ class Redeem extends React.Component{
     async componentDidMount() {
         const path = window.location.pathname
         const rewardqr = path.substring(path.length -1)
-        console.log(rewardqr)
+        //console.log(rewardqr)
 
-       /* try{
+        try{
             const requestBody = JSON.stringify({
                 qrcodereward : rewardqr
             });
 
             const response = await api.post('/test/isRedeemed', requestBody);
-
+            if (response.data === true){
+                window.location.href="/notvalid"
+            }
+            console.log(response)
 
             //this.props.history.push(`/reward`);
-            console.log(response);
+
 
         } catch (error){
             alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }*/
+        }
     }
 
 
