@@ -2,13 +2,13 @@ package com.example.demo.REST;
 
 public class UserPostDTO {
     private String emailAddress;
-    private String partner_QR_Code;
+    private String kindOfReward;
 
-    public String getPartner_QR_Code() {
-        return partner_QR_Code;
+    public String getKindOfReward() {
+        return kindOfReward;
     }
-    public void setPartner_QR_Code(String partner) {
-        partner_QR_Code = partner;
+    public void setKindOfReward(String kindOfReward) {
+        this.kindOfReward = kindOfReward;
     }
 
     public String getEmailAddress() {

@@ -7,12 +7,12 @@ package com.example.demo;
 
 public class MailContent {
     private String location;
-    private String QRCodeImage;
+    private String image;
     private String mailContent;
 
     public MailContent(String location, String QRCodeImage){
         this.location = location;
-        this.QRCodeImage = QRCodeImage;
+        this.image = QRCodeImage;
     }
 
     public String getLocation() {
@@ -24,11 +24,11 @@ public class MailContent {
     }
 
     public String getQRCodeImage() {
-        return QRCodeImage;
+        return image;
     }
 
     public void setQRCodeImage(String QRCodeImage) {
-        this.QRCodeImage = QRCodeImage;
+        this.image = QRCodeImage;
     }
 
     public String getMailContent() {
@@ -256,7 +256,7 @@ public class MailContent {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t<table class=\"image_block\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" role=\"presentation\" style=\"mso-table-lspace: 0pt; mso-table-rspace: 0pt;\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width:100%;padding-right:0px;padding-left:0px;\">\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div align=\"center\" style=\"line-height:10px\"><img src=\"" + this.QRCodeImage + ">"+"\" style=\"display: block; height: auto; border: 0; width: 158px; max-width: 100%;\" width=\"158\" alt=\"Image\" title=\"Image\"></div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div align=\"center\" style=\"line-height:10px\"><img src=\"" + this.image + ">"+"\" style=\"display: block; height: auto; border: 0; width: 158px; max-width: 100%;\" width=\"158\" alt=\"Image\" title=\"Image\"></div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +

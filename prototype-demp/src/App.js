@@ -15,7 +15,7 @@ import {
 LINK: creates a Link
     to: refers to where link should navigate to
 ROUTE: establish the link between component’s UI and the URL
-    exact: renders only exact /reward page (not for example /reward/10)
+    exact: renders only exact /normalReward page (not for example /normalReward/10)
     path: pathname assigned to component
     element: refers the component that's rendered when matching its path
 ROUTES: to render a single component -> iterates over the routes and renders first one that matches
@@ -36,7 +36,8 @@ class App extends Component {
                     </ul>
                     <Routes>
                         <Route exact path='/' element={< Home />}></Route>
-                        <Route exact path='/reward' element={< Reward />}></Route>
+                        <Route exact path='/normalReward' element={< Home />}></Route>
+                        <Route exact path='/blockchainReward' element={<Home/>}></Route>
                         <Route exact path='/1' element={< Home />}></Route>
                         <Route exact path='/redeem/1' element={< Redeem />}></Route>
                         <Route exact path='/notvalid' element={< InvalidReward />}></Route>

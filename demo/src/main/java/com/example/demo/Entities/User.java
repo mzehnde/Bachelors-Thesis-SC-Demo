@@ -2,23 +2,23 @@ package com.example.demo.Entities;
 
 public class User {
     private String emailAddress;
-    private String partner_QR_Code;
+    private String kindOfReward;
 
-    public String getPartner_QR_Code() {
-        return partner_QR_Code;
+    public String getKindOfReward() {
+        return kindOfReward;
     }
 
-    public void setPartner_QR_Code(String Partner) {
-        partner_QR_Code = Partner;
+    public void setKindOfReward(String kindOfReward) {
+        this.kindOfReward = kindOfReward;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public User(String emailAddress, String Partner) {
+    public User(String emailAddress, String kindOfReward) {
         this.emailAddress = emailAddress;
-        this.partner_QR_Code = Partner;
+        this.kindOfReward = kindOfReward;
     }
 
     public void setEmailAddress(String emailAddress) {

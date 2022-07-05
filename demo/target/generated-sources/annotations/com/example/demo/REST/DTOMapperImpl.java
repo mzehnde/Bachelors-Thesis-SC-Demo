@@ -1,13 +1,12 @@
 package com.example.demo.REST;
 
 import com.example.demo.Entities.Partner;
-import com.example.demo.Entities.Reward;
 import com.example.demo.Entities.User;
 import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-02T17:20:34+0200",
+    date = "2022-07-05T17:18:14+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 15 (Oracle Corporation)"
 )
 public class DTOMapperImpl implements DTOMapper {
@@ -32,42 +31,13 @@ public class DTOMapperImpl implements DTOMapper {
         }
 
         String emailAddress = null;
+        String kindOfReward = null;
 
         emailAddress = userPostDTO.getEmailAddress();
+        kindOfReward = userPostDTO.getKindOfReward();
 
-        String partner = null;
-
-        User user = new User( emailAddress, partner );
-
-        user.setPartner_QR_Code( userPostDTO.getPartner_QR_Code() );
+        User user = new User( emailAddress, kindOfReward );
 
         return user;
-    }
-
-    @Override
-    public Reward convertRewardPutDTOtoEntity(RewardPutDTO rewardPutDTO) {
-        if ( rewardPutDTO == null ) {
-            return null;
-        }
-
-        Reward reward = new Reward();
-
-        reward.setSales( rewardPutDTO.getSales() );
-        reward.setQrcodereward( rewardPutDTO.getQrcodereward() );
-
-        return reward;
-    }
-
-    @Override
-    public Reward convertIsRedeemedGetDTOtoEntity(IsRedeemedGetDTO isRedeemedGetDTO) {
-        if ( isRedeemedGetDTO == null ) {
-            return null;
-        }
-
-        Reward reward = new Reward();
-
-        reward.setQrcodereward( isRedeemedGetDTO.getQrcodereward() );
-
-        return reward;
     }
 }

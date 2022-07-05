@@ -52,7 +52,6 @@ class Home extends React.Component{
     }
 
     componentDidMount() {
-        console.log(window.location.pathname.substring(1))
     }
 
     emailValidation(){
@@ -69,29 +68,25 @@ class Home extends React.Component{
     onSubmit(){
 
         if(this.emailValidation()){
-            console.log(this.state);
-            this.sendEmail();
-            window.location.href="/reward"
-            //this.props.history.push('/test/reward')
-
-            //history.push("/display");
+            this.sendReward();
         }
     }
 
-    async sendEmail() {
+    async sendReward() {
+
         try{
             const requestBody = JSON.stringify({
                 emailAddress: this.state.email,
-                partner_QR_Code: window.location.pathname.substring(1)
+                kindOfReward: window.location.pathname
             });
 
-            const response = await api.post('/test/sendMail', requestBody);
+            const response = await api.post('/test/sendReward', requestBody);
 
-            //this.props.history.push(`/reward`);
-            console.log(response);
+            console.log(response.data);
+            window.location.href="/reward"
 
         } catch (error){
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Unfortunately there are no more rewards left!`);
         }
     }
 
