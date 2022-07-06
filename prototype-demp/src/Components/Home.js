@@ -36,6 +36,11 @@ import Button from "@material-ui/core/Button";
 //3. new gmail account with "APP name"
 //4. scale for phone
 
+const API_URL = "https://eth-goerli.alchemyapi.io/v2/wR2HADjlUrTjeB-Rm7EKzWlL_6c6io2-"
+const PUBLIC_KEY = "0x6Adc4066eBB891bC7c92397051A46C5301Cc6fd8"
+const PRIVATE_KEY = "26a988e523d6e5defdd21917b5ef7c2541d698a22f84bc2e98238087a24e6bac"
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
+const web3 = createAlchemyWeb3(API_URL)
 
 class Home extends React.Component{
     constructor() {
