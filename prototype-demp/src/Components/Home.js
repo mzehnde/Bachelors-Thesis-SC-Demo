@@ -41,6 +41,9 @@ const PUBLIC_KEY = "0x6Adc4066eBB891bC7c92397051A46C5301Cc6fd8"
 const PRIVATE_KEY = "26a988e523d6e5defdd21917b5ef7c2541d698a22f84bc2e98238087a24e6bac"
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 const web3 = createAlchemyWeb3(API_URL)
+const contract = require("../artifacts/contracts/NFTRewards.sol/NFTRewards.json")
+const contractAddress = "0x6dadaF4B1aDe44337Ae315C82Aa7e6f98758F230"
+const nftContract = new web3.eth.Contract(contract.abi, contractAddress)
 
 class Home extends React.Component{
     constructor() {
@@ -48,6 +51,44 @@ class Home extends React.Component{
         this.state = {
             email:null
         };
+    }
+
+    async mintNFT(tokenURI) {
+        const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest") //get latest nonce
+
+        //the transaction
+        const tx = {
+            from: PUBLIC_KEY,
+            to: contractAddress,
+            nonce: nonce,
+            gas: 500000,
+            data: nftContract.methods.mintNFT(PUBLIC_KEY, tokenURI).encodeABI(),
+        }
+
+        const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
+        signPromise
+            .then((signedTx) => {
+                web3.eth.sendSignedTransaction(
+                    signedTx.rawTransaction,
+                    function (err, hash) {
+                        if (!err) {
+                            console.log(
+                                "The hash of your transaction is: ",
+                                hash,
+                                "\nCheck Alchemy's Mempool to view the status of your transaction!"
+                            )
+                        } else {
+                            console.log(
+                                "Something went wrong when submitting your transaction:",
+                                err
+                            )
+                        }
+                    }
+                )
+            })
+            .catch((err) => {
+                console.log(" Promise failed:", err)
+            })
     }
 
     handleInputChange(key, value) {
@@ -71,10 +112,10 @@ class Home extends React.Component{
     }
 
     onSubmit(){
-
-        if(this.emailValidation()){
+        this.mintNFT("https://gateway.pinata.cloud/ipfs/QmVSk71DmVjjJSMbHcxKLxvR7wKYbbJX8rzJ2hFd4yFu8L")
+        /*if(this.emailValidation()){
             this.sendReward();
-        }
+        }*/
     }
 
     async sendReward() {
