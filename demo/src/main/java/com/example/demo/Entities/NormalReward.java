@@ -19,6 +19,9 @@ public class NormalReward {
     @Column(name = "Location")
     private String Location;
 
+    @Column(name = "Partner")
+    private String Partner;
+
 
 
     public NormalReward(String name) {
@@ -28,7 +31,13 @@ public class NormalReward {
     public NormalReward() {
     }
 
+    public String getPartner() {
+        return Partner;
+    }
 
+    public void setPartner(String partner) {
+        Partner = partner;
+    }
 
     public Long getId() {
         return Id;

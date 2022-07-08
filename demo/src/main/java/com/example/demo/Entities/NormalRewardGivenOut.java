@@ -19,11 +19,15 @@ public class NormalRewardGivenOut {
     @Column(name = "Location")
     private String Location;
 
-    public NormalRewardGivenOut(Long id, String name, String image, String location) {
+    @Column(name = "Partner")
+    private String Partner;
+
+    public NormalRewardGivenOut(Long id, String name, String image, String location, String partner) {
         Id = id;
         Name = name;
         Image = image;
         Location = location;
+        Partner = partner;
     }
 
     public NormalRewardGivenOut() {

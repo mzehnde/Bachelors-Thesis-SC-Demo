@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Home from '../src/Components/Home'
+import BlockchainLogin from './Components/BlockchainLogin'
 import Reward from '../src/Components/Reward'
 import Redeem from '../src/Components/Redeem'
 import InvalidReward from '../src/Components/InvalidReward'
@@ -10,6 +10,7 @@ import {
         Route,
         Link
 } from 'react-router-dom';
+import NormalLogin from "./Components/NormalLogin";
 
 /* DOC:
 LINK: creates a Link
@@ -35,10 +36,11 @@ class App extends Component {
                     <ul>
                     </ul>
                     <Routes>
-                        <Route exact path='/' element={< Home />}></Route>
-                        <Route exact path='/normalReward' element={< Home />}></Route>
-                        <Route exact path='/blockchainReward' element={<Home/>}></Route>
-                        <Route exact path='/1' element={< Home />}></Route>
+                        <Route exact path='/' element={< BlockchainLogin />}></Route>
+                        <Route exact path='/blockchainReward/1' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/blockchainReward/2' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/blockchainReward/3' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/normalReward' element={< NormalLogin />}></Route>
                         <Route exact path='/redeem/1' element={< Redeem />}></Route>
                         <Route exact path='/notvalid' element={< InvalidReward />}></Route>
                     </Routes>
