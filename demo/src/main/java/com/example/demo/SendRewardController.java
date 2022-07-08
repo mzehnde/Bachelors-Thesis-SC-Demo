@@ -110,17 +110,22 @@ public class SendRewardController {
     Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException {
         String queryParam = "?status=pinned&metadata[keyvalues]=[Partner]{\"value\":\""+partnerWhereRewardReceived+"\",\"op\":\"ne\"}";
         String nameParam = "?metadata[name]=PartnerHonigReward1.json";
-        String testParam = "?metadata[keyvalues]={Partner:{value:" + partnerWhereRewardReceived + ",op:ne}}";
+        String testParam = "?metadata[keyvalues][Partner]={\"value\":\"PartnerAlfred\",\"op\":\"ne\"}";
         //URL url = new URL("https://api.pinata.cloud/data/pinList" + queryParam);
         //String encodedURL = "https://api.pinata.cloud/data/pinList" +encode(queryParam);
         //Construct URL String:
-        String baseURL = "https://api.pinata.cloud/data/pinList";
-        String pinnedParam = "?status=pinned";
-        String metadataParam = "&metadata[keyvalues]={\"Partner\":{\"value\":\"PartnerAlfred\",\"op\":\"ne\"}}";
-        String completeURL = baseURL + pinnedParam + java.net.URLEncoder.encode(metadataParam, "UTF-8");
+        String baseURL = "https://api.pinata.cloud/data/pinList?";
+        String pinnedParam = "&status=pinned";
+        String metadataParam = "metadata[keyvalues]=";
+        String metadataValues = "{\"Partner\":{\"value\":\"PartnerHonig\",\"op\":\"ne\"}}";
+        /*String encoded= java.net.URLEncoder.encode(testParam, "UTF-8");
+        String decoded = java.net.URLDecoder.decode(encoded, "UTF-8");*/
+        String completeURL = baseURL + metadataParam + java.net.URLEncoder.encode(metadataValues, "UTF-8") + pinnedParam;
 
 
+        //CORRECT
         URL url = new URL(completeURL);
+
 
         //return encodedURL;
         /*if (encodedURL.equals("https%3A%2F%2Fapi.pinata.cloud%2Fdata%2FpinList%2F%3Fstatus%3Dpinned%26metadata%5Bkeyvalues%5D%3D%7B%22Partner%22%3A%7B%22value%22%3A%22PartnerAlfred%22%2C%22op%22%3A%22ne%22%7D%7D")){
@@ -182,16 +187,16 @@ public class SendRewardController {
 
         //CORRECT
         int status = con.getResponseCode();
-        return status;
-        /*BufferedReader in = new BufferedReader(
+
+        BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
-        in.close();*/
-        //return content;
+        in.close();
+        return content;
         //CORRECT
         //fetch metadatas and check if .partner=partnerReward...
         //return if condition is correct: .image

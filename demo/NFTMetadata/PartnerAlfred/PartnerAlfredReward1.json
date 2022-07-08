@@ -12,7 +12,7 @@
     },
     "partner": {
       "type": "string",
-      "description": "PartnerTina"
+      "description": "PartnerAlfred"
     },
     "id": {
       "type": "integer",
