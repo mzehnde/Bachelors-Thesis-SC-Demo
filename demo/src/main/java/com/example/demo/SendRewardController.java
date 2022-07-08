@@ -85,7 +85,7 @@ public class SendRewardController {
             while(!prevURL.equals(decodeURL))
             {
                 prevURL=decodeURL;
-                decodeURL=URLDecoder.decode( decodeURL, "UTF-8" );
+                decodeURL=URLDecoder.decode( decodeURL, "ASCII" );
             }
             return decodeURL;
         } catch (UnsupportedEncodingException e) {
@@ -93,15 +93,44 @@ public class SendRewardController {
         }
     }
 
+    public static String encode(String url)
+    {
+        try {
+            String encodeURL=URLEncoder.encode( url, "UTF-8" );
+            return encodeURL;
+        } catch (UnsupportedEncodingException e) {
+            return "Issue while encoding" +e.getMessage();
+        }
+    }
+
     //API CALl that fetches metadata and returns its URL (body:partner from URL (key=name))
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/metadata") // Map ONLY POST Requests
     public @ResponseBody
-    Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException {
-        String queryParam = "?metadata[keyvalues][Partner]{\"value:\"" + partnerWhereRewardReceived + ", \"op\":\"ne\"}";
+    Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException {
+        String queryParam = "?status=pinned&metadata[keyvalues]=[Partner]{\"value\":\""+partnerWhereRewardReceived+"\",\"op\":\"ne\"}";
         String nameParam = "?metadata[name]=PartnerHonigReward1.json";
         String testParam = "?metadata[keyvalues]={Partner:{value:" + partnerWhereRewardReceived + ",op:ne}}";
-        URL url = new URL("https://api.pinata.cloud/data/pinList" + queryParam);
+        //URL url = new URL("https://api.pinata.cloud/data/pinList" + queryParam);
+        //String encodedURL = "https://api.pinata.cloud/data/pinList" +encode(queryParam);
+        //Construct URL String:
+        String baseURL = "https://api.pinata.cloud/data/pinList";
+        String pinnedParam = "?status=pinned";
+        String metadataParam = "&metadata[keyvalues]={\"Partner\":{\"value\":\"PartnerAlfred\",\"op\":\"ne\"}}";
+        String completeURL = baseURL + pinnedParam + java.net.URLEncoder.encode(metadataParam, "UTF-8");
+
+
+        URL url = new URL(completeURL);
+
+        //return encodedURL;
+        /*if (encodedURL.equals("https%3A%2F%2Fapi.pinata.cloud%2Fdata%2FpinList%2F%3Fstatus%3Dpinned%26metadata%5Bkeyvalues%5D%3D%7B%22Partner%22%3A%7B%22value%22%3A%22PartnerAlfred%22%2C%22op%22%3A%22ne%22%7D%7D")){
+            return true;
+        }
+        else{
+            return false;
+        }*/
+        /*URL url = new URL("https://api.pinata.cloud/data/pinList" +encodedURL);
+        return url;*/
 
         //HttpGet httpGet = new HttpGet("https://example.com");
         /*try {
@@ -116,21 +145,28 @@ public class SendRewardController {
 
         //HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-        URL url1 = UriComponentsBuilder.fromUriString(String.valueOf(url)).queryParam("status", "pinned").build().toUri().toURL();
-        String url2 = url1.toString();
+        //URL url1 = UriComponentsBuilder.fromUriString(String.valueOf(url)).queryParam("status", "pinned").build().toUri().toURL();
+        //return url1;
+        //String decodeURL=URLDecoder.decode(String.valueOf(url1), "ASCII" )
+        /*String url2 = url1.toString();
         String decodeUrl = decode(url2);
+        String encodeURL = encode(decodeUrl);
+        //URL finalURL = new URL(encodeURL);
+        return finalURL;*/
+
         /*try (InputStream in = url1.openStream()) {
             return new String(in.readAllBytes(), StandardCharsets.UTF_8);
         }*/
-        return decodeUrl;
 
 
 
+        //URL url3 = new URL(decodeUrl);
+        //return url3;
         //CORRECT
-        /*HttpURLConnection con = (HttpURLConnection) url1.openConnection();
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMzU3YTBlNy1kM2NkLTRjY2MtOGUwZi1iYmJjYTlkZDZkNWUiLCJlbWFpbCI6Im1heC56ZWhuZGVyQGhvdG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjA2ZGY2NjQzMTE3MThiZDUxMjM4Iiwic2NvcGVkS2V5U2VjcmV0IjoiOTA3ZDNmOTQyMjc3ZWE4NjRjNjdhOWY4YTgzZDBmYjNkMTM3OWY0MGI4ZmZlZDJjNDI4YTJmOWZjYWM2YTY5OCIsImlhdCI6MTY1NzE5MzQ2NX0.uAgBlwk3aYq9-ifBUjXx4aZZC2YUWRT9J_2Mn7MC_0g") ;
-        //CORRECT*/
+        //CORRECT
 
 
         /*OutputStream os = conn.getOutputStream();
@@ -145,16 +181,17 @@ public class SendRewardController {
 
 
         //CORRECT
-        /*int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(
+        int status = con.getResponseCode();
+        return status;
+        /*BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
-        in.close();
-        return content;*/
+        in.close();*/
+        //return content;
         //CORRECT
         //fetch metadatas and check if .partner=partnerReward...
         //return if condition is correct: .image
