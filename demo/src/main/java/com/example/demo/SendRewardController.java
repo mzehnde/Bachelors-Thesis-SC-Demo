@@ -9,6 +9,9 @@ import com.example.demo.Repositories.NormalRewardRepository;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,10 +107,14 @@ public class SendRewardController {
     }
 
     //API CALl that fetches metadata and returns its URL (body:partner from URL (key=name))
+    //make jsonObject only with first index of "row"
+    //convert it to NFTRewardGivenOut class and save in db
+    //send Email with image of this class
+    //return ifps link to metadata for minting in frontend
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/metadata") // Map ONLY POST Requests
     public @ResponseBody
-    Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException {
+    Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException, ParseException {
         String baseURL = "https://api.pinata.cloud/data/pinList?";
         String pinnedParam = "&status=pinned";
         String metadataParam = "metadata[keyvalues]=";
@@ -131,18 +138,50 @@ public class SendRewardController {
             content.append(inputLine);
         }
         in.close();
-        return content;
+        String data = content.toString();
+        /*JSONParser parser = new JSONParser(data);
+        JSONObject json = (JSONObject) parser.parse();
+        return json;*/
+
+
+
+        //String data = content.toString();
+        /*JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(data);*/
+        //return data;
+        //return content;
         //CORRECT
         //fetch metadatas and check if .partner=partnerReward...
         //return if condition is correct: .image
-        /*JSONObject jsonObject = null;
+        JSONObject jsonObject = null;
         try {
-            jsonObject = new JSONObject(String.valueOf(content));
+            jsonObject = new JSONObject(data);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JSONObject files = (JSONObject) jsonObject.get("content");
-        return files.get("name");*/
+
+        JSONArray files = jsonObject.getJSONArray("rows");
+        JSONObject metadataToMint = files.getJSONObject(0);
+
+        return metadataToMint.toString();
+        //TODO: Claiming Reward:
+        //create entity and repository for NFTRewardGivenOUt:
+        // --> fields: Name, id, ifpsHash, image link (QR code that routes to /NFT/redeem/{id})
+        // add key value pairs to pinata (the ones that are in metadata --> namely: id, imageLink, Partner)
+        // create instance of that entity with the metadata values fetched from pinata
+        // send Email with image
+        // delete this file from pinata
+        // save the file in NFTRewardsClaimed Repo
+        // return the ifps Hash that links to metadata file for minting in frontend
+
+        //TODO: Redeeming Reward (NFT):
+        //create a test route with a correct id that also is in pinata
+        //make request after submitting sales form (Body: id) & make page invalid:
+        //find reward in NFTGivenOut repo
+        //make a new NFTRewardClaimed repo and entity
+        //create an instance and construct via field os NFTGIvenOUt
+        //add sales field and save in NFTRedeemed Repo
+        // --> same with normalReward Route (only other repos)
     }
 
 
