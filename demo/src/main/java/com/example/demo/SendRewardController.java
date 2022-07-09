@@ -1,12 +1,15 @@
 package com.example.demo;
 
+import com.example.demo.Entities.NFTRewardGivenOut;
 import com.example.demo.Entities.NormalReward;
 import com.example.demo.Entities.NormalRewardGivenOut;
 import com.example.demo.Entities.User;
 import com.example.demo.REST.*;
+import com.example.demo.Repositories.NFTRewardGivenOutRepository;
 import com.example.demo.Repositories.NormalRewardGivenOutRepository;
 import com.example.demo.Repositories.NormalRewardRepository;
 
+import com.mysql.cj.xdevapi.JsonNumber;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.tomcat.util.json.JSONParser;
@@ -14,6 +17,7 @@ import org.apache.tomcat.util.json.ParseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +41,9 @@ public class SendRewardController {
 
     @Autowired
     private NormalRewardGivenOutRepository normalRewardGivenOutRepository;
+
+    @Autowired
+    private NFTRewardGivenOutRepository nftRewardGivenOutRepository;
 
     private String BearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMzU3YTBlNy1kM2NkLTRjY2MtOGUwZi1iYmJjYTlkZDZkNWUiLCJlbWFpbCI6Im1heC56ZWhuZGVyQGhvdG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjA2ZGY2NjQzMTE3MThiZDUxMjM4Iiwic2NvcGVkS2V5U2VjcmV0IjoiOTA3ZDNmOTQyMjc3ZWE4NjRjNjdhOWY4YTgzZDBmYjNkMTM3OWY0MGI4ZmZlZDJjNDI4YTJmOWZjYWM2YTY5OCIsImlhdCI6MTY1NzE5MzQ2NX0.uAgBlwk3aYq9-ifBUjXx4aZZC2YUWRT9J_2Mn7MC_0g";
 
@@ -112,9 +119,9 @@ public class SendRewardController {
     //send Email with image of this class
     //return ifps link to metadata for minting in frontend
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping(path="/metadata") // Map ONLY POST Requests
+    @GetMapping(path="/metadata/{partnerWhereRewardReceived}") // Map ONLY POST Requests
     public @ResponseBody
-    Object getMetadata (@RequestParam String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException, ParseException {
+    Object getMetadata (@PathVariable String partnerWhereRewardReceived) throws IOException, JSONException, URISyntaxException, ParseException {
         String baseURL = "https://api.pinata.cloud/data/pinList?";
         String pinnedParam = "&status=pinned";
         String metadataParam = "metadata[keyvalues]=";
@@ -139,20 +146,8 @@ public class SendRewardController {
         }
         in.close();
         String data = content.toString();
-        /*JSONParser parser = new JSONParser(data);
-        JSONObject json = (JSONObject) parser.parse();
-        return json;*/
 
 
-
-        //String data = content.toString();
-        /*JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(data);*/
-        //return data;
-        //return content;
-        //CORRECT
-        //fetch metadatas and check if .partner=partnerReward...
-        //return if condition is correct: .image
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(data);
@@ -162,17 +157,36 @@ public class SendRewardController {
 
         JSONArray files = jsonObject.getJSONArray("rows");
         JSONObject metadataToMint = files.getJSONObject(0);
+        String ipfsHash =  metadataToMint.getString("ipfs_pin_hash");
+        JSONObject metadata = metadataToMint.getJSONObject("metadata");
 
-        return metadataToMint.toString();
+
+
+        String name = metadata.getString("name");
+        JSONObject keyvalues = metadata.getJSONObject("keyvalues");
+        int id = keyvalues.getInt("Id");
+        String image = keyvalues.getString("Image");
+
+        NFTRewardGivenOut nftRewardGivenOut = new NFTRewardGivenOut(id, name, image, ipfsHash);
+        nftRewardGivenOutRepository.save(nftRewardGivenOut);
+
+        NFTGetDTO nftGetDTO=DTOMapper.INSTANCE.convertEntityToNFTGetDTO(nftRewardGivenOut);
+
+        return nftGetDTO;
+
+
+
         //TODO: Claiming Reward:
         //create entity and repository for NFTRewardGivenOUt:
         // --> fields: Name, id, ifpsHash, image link (QR code that routes to /NFT/redeem/{id})
         // add key value pairs to pinata (the ones that are in metadata --> namely: id, imageLink, Partner)
         // create instance of that entity with the metadata values fetched from pinata
-        // send Email with image
-        // delete this file from pinata
         // save the file in NFTRewardsClaimed Repo
-        // return the ifps Hash that links to metadata file for minting in frontend
+        // send back ifpsHash and id
+        //new api call (body:cid):
+        // delete this file from pinata
+        // new api call --> send Email with image (body: id
+
 
         //TODO: Redeeming Reward (NFT):
         //create a test route with a correct id that also is in pinata

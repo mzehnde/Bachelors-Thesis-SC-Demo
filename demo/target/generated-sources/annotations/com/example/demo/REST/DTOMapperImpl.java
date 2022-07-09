@@ -1,12 +1,13 @@
 package com.example.demo.REST;
 
+import com.example.demo.Entities.NFTRewardGivenOut;
 import com.example.demo.Entities.Partner;
 import com.example.demo.Entities.User;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-08T18:38:49+0200",
+    date = "2022-07-09T15:31:53+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 15 (Oracle Corporation)"
 )
 public class DTOMapperImpl implements DTOMapper {
@@ -41,5 +42,22 @@ public class DTOMapperImpl implements DTOMapper {
         Partner partner = new Partner( name );
 
         return partner;
+    }
+
+    @Override
+    public NFTGetDTO convertEntityToNFTGetDTO(NFTRewardGivenOut nftRewardGivenOut) {
+        if ( nftRewardGivenOut == null ) {
+            return null;
+        }
+
+        int id = 0;
+        String ifpsHash = null;
+
+        id = nftRewardGivenOut.getId();
+        ifpsHash = nftRewardGivenOut.getIfpsHash();
+
+        NFTGetDTO nFTGetDTO = new NFTGetDTO( id, ifpsHash );
+
+        return nFTGetDTO;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.REST;
 
+import com.example.demo.Entities.NFTRewardGivenOut;
 import com.example.demo.Entities.Partner;
 import com.example.demo.Entities.User;
 import org.mapstruct.Mapper;
@@ -18,6 +19,10 @@ public interface DTOMapper {
 
     @Mapping(source = "name", target = "name")
     Partner convertPartnerGetDTOtoEntity(PartnerGetDTO partnerGetDTO);
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "ifpsHash", target = "ifpsHash")
+    NFTGetDTO convertEntityToNFTGetDTO(NFTRewardGivenOut nftRewardGivenOut);
 
     /*@Mapping(source = "sales", target = "sales")
     @Mapping(source = "qrcodereward", target = "qrcodereward")

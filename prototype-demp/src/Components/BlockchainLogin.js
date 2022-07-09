@@ -42,7 +42,7 @@ class BlockchainLogin extends React.Component{
     constructor() {
         super();
         this.state = {
-            email:null
+            email:null,
         };
     }
 
@@ -104,13 +104,20 @@ class BlockchainLogin extends React.Component{
         return true;
     }
 
-    onSubmit(){
-        //API CALl that fetches metadata and returns its URL (body:partner from URL)
+    async onSubmit(){
+        //Get as response: {id:value, hash:value} --> test it (populate pinata keyvalues)
+        //mintNFT(hashValue)
+        //API Call: delete from pinata (CID/Hashvalue)
+        //API Call: sendEmail(id) -> to find image we give id (nftrewardgivenoutrepo)
+        const response = await api.get(`/test/metadata/${window.location.pathname.substring(18)}`)
+        console.log(response)
+
+
 
         //API CALL that makes new NFTRewardGivenOutENtity with metadata infos (body: metadata URL) and returns id
         //API CALL 3 that sendsEmail from image to emailAdress (body: email, id --> to get image URL for Mail)
         //Mint NFT here with return value from first call
-        this.mintNFT("https://gateway.pinata.cloud/ipfs/QmVSk71DmVjjJSMbHcxKLxvR7wKYbbJX8rzJ2hFd4yFu8L")
+        //this.mintNFT("https://gateway.pinata.cloud/ipfs/QmVSk71DmVjjJSMbHcxKLxvR7wKYbbJX8rzJ2hFd4yFu8L")
         /*if(this.emailValidation()){
             this.sendReward();
         }*/

@@ -7,10 +7,13 @@
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/REST/DTOMapper.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/MailContent.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Mail.java
+/Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Repositories/NFTRewardGivenOutRepository.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/REST/RewardPutDTO.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Entities/NormalReward.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/DemoApplication.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/SendRewardController.java
+/Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Entities/NFTRewardGivenOut.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Repositories/NormalRewardRepository.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Entities/User.java
+/Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/REST/NFTGetDTO.java
 /Users/maxzehnder/Desktop/Proto/proto-demo/demo/src/main/java/com/example/demo/Entities/NormalRewardGivenOut.java

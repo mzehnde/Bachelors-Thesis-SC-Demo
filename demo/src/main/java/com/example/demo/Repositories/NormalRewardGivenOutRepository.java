@@ -12,7 +12,5 @@ public interface NormalRewardGivenOutRepository extends CrudRepository<NormalRew
 
     List<NormalRewardGivenOut> findAll();
 
-    /*List<NormalReward> findByQrcodepartner(String partner_qr_code);
 
-    NormalReward findByQrcodereward(String qrcodereward);*/
 }

@@ -37,7 +37,7 @@ class App extends Component {
                     </ul>
                     <Routes>
                         <Route exact path='/' element={< BlockchainLogin />}></Route>
-                        <Route exact path='/blockchainReward/1' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/blockchainReward/partnerAlfred' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/blockchainReward/2' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/blockchainReward/3' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/normalReward' element={< NormalLogin />}></Route>
