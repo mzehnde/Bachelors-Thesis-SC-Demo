@@ -15,7 +15,7 @@ import red from "@material-ui/core/colors/red";
 //import {withRouter} from  'react-router-dom';
 
 
-class Redeem extends React.Component{
+class RedeemNormal extends React.Component{
     constructor() {
         super();
         this.state = {
@@ -36,24 +36,24 @@ class Redeem extends React.Component{
         const NFTId = path.substring(11)
 
         const requestBody = JSON.stringify({
-                id : NFTId})
+            id : NFTId})
 
-        const response = await api.put('test/isNFTRedeemed', requestBody)
+        const response = await api.put('test/isNormalRedeemed', requestBody)
         if(response.data===true){
             window.location.href="/notvalid"
         }
         console.log(response)
-        }
+    }
 
     //add sales and mark as redeemed
     async onSubmit(){
         try{
             const requestBody = JSON.stringify({
                 sales:this.state.sales,
-                id:window.location.pathname.substring(11)
+                id:window.location.pathname.substring(14)
             });
 
-            const response = await api.put('/test/redeemNFT', requestBody);
+            const response = await api.put('/test/redeemNormal', requestBody);
 
             //this.props.history.push(`/reward`);
             console.log(response);
@@ -109,4 +109,4 @@ class Redeem extends React.Component{
     }
 }
 
-export default Redeem
+export default RedeemNormal

@@ -2,8 +2,12 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.app-logo {
+  /*height: 5vmin;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
   pointer-events: none;
 }
 

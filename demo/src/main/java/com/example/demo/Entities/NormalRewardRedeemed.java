@@ -3,8 +3,8 @@ package com.example.demo.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "NormalReward")
-public class NormalReward {
+@Table(name = "NormalRewardRedeemed")
+public class NormalRewardRedeemed {
     @Id
     @Column(name = "Id")
     private int Id;
@@ -21,13 +21,51 @@ public class NormalReward {
     @Column(name = "Partner")
     private String Partner;
 
+    @Column(name = "Sales")
+    private int Sales;
 
-
-    public NormalReward(String name) {
-        this.Name = name;
+    public NormalRewardRedeemed() {
     }
 
-    public NormalReward() {
+    public NormalRewardRedeemed(int id, String name, String image, String location, String partner, int sales) {
+        Id = id;
+        Name = name;
+        Image = image;
+        Location = location;
+        Partner = partner;
+        Sales = sales;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
     }
 
     public String getPartner() {
@@ -38,37 +76,11 @@ public class NormalReward {
         Partner = partner;
     }
 
-    public int getId() {
-        return Id;
+    public int getSales() {
+        return Sales;
     }
 
-    public void setId(int id) {
-        this.Id = id;
+    public void setSales(int sales) {
+        Sales = sales;
     }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        this.Name = name;
-    }
-
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        this.Image = image;
-    }
-
-    public String getLocation() {
-        return Location;
-    }
-
-    public void setLocation(String location) {
-        this.Location = location;
-    }
-
-
 }

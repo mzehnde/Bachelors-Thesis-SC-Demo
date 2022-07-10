@@ -1,34 +1,20 @@
 package com.example.demo;
 
-import com.example.demo.Entities.NFTRewardGivenOut;
-import com.example.demo.Entities.NormalReward;
-import com.example.demo.Entities.NormalRewardGivenOut;
-import com.example.demo.Entities.User;
+import com.example.demo.Entities.*;
 import com.example.demo.REST.*;
-import com.example.demo.Repositories.NFTRewardGivenOutRepository;
-import com.example.demo.Repositories.NormalRewardGivenOutRepository;
-import com.example.demo.Repositories.NormalRewardRepository;
+import com.example.demo.Repositories.*;
 
-import com.mysql.cj.xdevapi.JsonNumber;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -44,6 +30,12 @@ public class SendRewardController {
 
     @Autowired
     private NFTRewardGivenOutRepository nftRewardGivenOutRepository;
+
+    @Autowired
+    private NFTRewardRedeemedRepository nftRewardRedeemedRepository;
+
+    @Autowired
+    private NormalRewardRedeemedRepository normalRewardRedeemedRepository;
 
     private String BearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMzU3YTBlNy1kM2NkLTRjY2MtOGUwZi1iYmJjYTlkZDZkNWUiLCJlbWFpbCI6Im1heC56ZWhuZGVyQGhvdG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjA2ZGY2NjQzMTE3MThiZDUxMjM4Iiwic2NvcGVkS2V5U2VjcmV0IjoiOTA3ZDNmOTQyMjc3ZWE4NjRjNjdhOWY4YTgzZDBmYjNkMTM3OWY0MGI4ZmZlZDJjNDI4YTJmOWZjYWM2YTY5OCIsImlhdCI6MTY1NzE5MzQ2NX0.uAgBlwk3aYq9-ifBUjXx4aZZC2YUWRT9J_2Mn7MC_0g";
 
@@ -77,6 +69,7 @@ public class SendRewardController {
     public @ResponseBody String sendReward (@RequestBody UserPostDTO userPostDTO){
         User userToReceiveReward = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
 
+
         List<NormalReward> allNormalRewards = normalRewardRepository.findAll();
         NormalReward normalRewardToSend = allNormalRewards.get(0);
         Mail email = new Mail(userToReceiveReward.getEmailAddress(), "claimyourawesomereward@gmail.com", normalRewardToSend.getImage(), normalRewardToSend.getLocation());
@@ -87,31 +80,21 @@ public class SendRewardController {
         return "NormalRewardRouting";
     }
 
-    public static String decode(String url)
-    {
-        try {
-            String prevURL="";
-            String decodeURL=url;
-            while(!prevURL.equals(decodeURL))
-            {
-                prevURL=decodeURL;
-                decodeURL=URLDecoder.decode( decodeURL, "ASCII" );
-            }
-            return decodeURL;
-        } catch (UnsupportedEncodingException e) {
-            return "Issue while decoding" +e.getMessage();
-        }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(path="/sendNFTEmail") // Map ONLY POST Requests
+    public @ResponseBody String sendNFTMail (@RequestBody NFTMailPutDTO nftMailPutDTO){
+        NFTMail nftMail = DTOMapper.INSTANCE.convertNFTMailPutDTOtoEntity(nftMailPutDTO);
+        int NFTId = nftMail.getId();
+        String emailAddress = nftMail.getEmail();
+
+        NFTRewardGivenOut nft = nftRewardGivenOutRepository.findById(NFTId);
+        Mail mail = new Mail(emailAddress, "claimyourawesomereward@gmail.com", nft.getImage(), nft.getLocation());
+        mail.sendEmail();
+        return "Email sent";
+
     }
 
-    public static String encode(String url)
-    {
-        try {
-            String encodeURL=URLEncoder.encode( url, "UTF-8" );
-            return encodeURL;
-        } catch (UnsupportedEncodingException e) {
-            return "Issue while encoding" +e.getMessage();
-        }
-    }
+
 
     //API CALl that fetches metadata and returns its URL (body:partner from URL (key=name))
     //make jsonObject only with first index of "row"
@@ -166,8 +149,9 @@ public class SendRewardController {
         JSONObject keyvalues = metadata.getJSONObject("keyvalues");
         int id = keyvalues.getInt("Id");
         String image = keyvalues.getString("Image");
+        String location = keyvalues.getString("Location");
 
-        NFTRewardGivenOut nftRewardGivenOut = new NFTRewardGivenOut(id, name, image, ipfsHash);
+        NFTRewardGivenOut nftRewardGivenOut = new NFTRewardGivenOut(id, name, image, ipfsHash, location);
         nftRewardGivenOutRepository.save(nftRewardGivenOut);
 
         NFTGetDTO nftGetDTO=DTOMapper.INSTANCE.convertEntityToNFTGetDTO(nftRewardGivenOut);
@@ -198,6 +182,79 @@ public class SendRewardController {
         // --> same with normalReward Route (only other repos)
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/metadata/delete") // Map ONLY POST Requests
+    public @ResponseBody int deleteMetadata(@RequestBody MetadataPinataPutDTO metadataPinataPutDTO) throws IOException {
+        MetadataPinata metadataPinata = DTOMapper.INSTANCE.convertMetadataPinataPutDTOtoEntity(metadataPinataPutDTO);
+        String stringURL = "https://api.pinata.cloud/pinning/unpin/"+metadataPinata.getIpfsHash();
+        URL url = new URL(stringURL);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("DELETE");
+        con.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMzU3YTBlNy1kM2NkLTRjY2MtOGUwZi1iYmJjYTlkZDZkNWUiLCJlbWFpbCI6Im1heC56ZWhuZGVyQGhvdG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjA2ZGY2NjQzMTE3MThiZDUxMjM4Iiwic2NvcGVkS2V5U2VjcmV0IjoiOTA3ZDNmOTQyMjc3ZWE4NjRjNjdhOWY4YTgzZDBmYjNkMTM3OWY0MGI4ZmZlZDJjNDI4YTJmOWZjYWM2YTY5OCIsImlhdCI6MTY1NzE5MzQ2NX0.uAgBlwk3aYq9-ifBUjXx4aZZC2YUWRT9J_2Mn7MC_0g") ;
+        //CORRECT
+        //CORRECT
+        return con.getResponseCode();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/isNFTRedeemed") // Map ONLY POST Requests
+    public @ResponseBody
+    boolean isNFTRedeemed(@RequestBody NFTisRedeemedPutDTO nfTisRedeemedPutDTO){
+        NFTRewardGivenOut idToFind = DTOMapper.INSTANCE.convertNFTisRedeemedPutDTOtoEntity(nfTisRedeemedPutDTO);
+        NFTRewardGivenOut rewardToCheck = nftRewardGivenOutRepository.findById(idToFind.getId());
+        if (rewardToCheck==null){
+            return true;
+        }
+        return false;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/redeemNFT") // Map ONLY POST Requests
+    public @ResponseBody
+    String redeemNFT(@RequestBody NFTRedeemPutDTO nftRedeemPutDTO){
+    NFTRewardRedeemed nft = DTOMapper.INSTANCE.convertNFTRedeemPutDTOtoEntity(nftRedeemPutDTO);
+    NFTRewardGivenOut nftToRedeem = nftRewardGivenOutRepository.findById(nft.getId());
+    int id = nftToRedeem.getId();
+    String name = nftToRedeem.getName();
+    String image = nftToRedeem.getImage();
+    String ipfsHash = nftToRedeem.getImage();
+    String location = nftToRedeem.getLocation();
+    NFTRewardRedeemed nftRewardRedeemed = new NFTRewardRedeemed(id, name, image, ipfsHash, location, nft.getSales());
+    nftRewardRedeemedRepository.save(nftRewardRedeemed);
+    nftRewardGivenOutRepository.delete(nftToRedeem);
+    return "saved Sales";
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/isNormalRedeemed") // Map ONLY POST Requests
+    public @ResponseBody
+    boolean isNormalRedeemed(@RequestBody NFTisRedeemedPutDTO nfTisRedeemedPutDTO){
+        NFTRewardGivenOut idToFind = DTOMapper.INSTANCE.convertNFTisRedeemedPutDTOtoEntity(nfTisRedeemedPutDTO);
+        NormalRewardGivenOut rewardToCheck = normalRewardGivenOutRepository.findById(idToFind.getId());
+        if (rewardToCheck==null){
+            return true;
+        }
+        return false;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(path="/redeemNormal") // Map ONLY POST Requests
+    public @ResponseBody
+    String redeemNormal(@RequestBody NFTRedeemPutDTO nftRedeemPutDTO){
+        NFTRewardRedeemed nftRewardRedeemed = DTOMapper.INSTANCE.convertNFTRedeemPutDTOtoEntity(nftRedeemPutDTO);
+        NormalRewardGivenOut rewardToRedeem = normalRewardGivenOutRepository.findById(nftRewardRedeemed.getId());
+        int id= rewardToRedeem.getId();
+        String name= rewardToRedeem.getName();
+        String image = rewardToRedeem.getImage();
+        String location = rewardToRedeem.getLocation();
+        String partner = rewardToRedeem.getPartner();
+        int sales = nftRewardRedeemed.getSales();
+
+        NormalRewardRedeemed normalRewardRedeemed = new NormalRewardRedeemed(id, name, image, location, partner, sales);
+        normalRewardRedeemedRepository.save(normalRewardRedeemed);
+        normalRewardGivenOutRepository.delete(rewardToRedeem);
+        return "added sales";
+    }
 
     //API CALl that fetches metadata and returns its URL (body:partner from URL)
 

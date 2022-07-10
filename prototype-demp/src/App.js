@@ -4,6 +4,8 @@ import BlockchainLogin from './Components/BlockchainLogin'
 import Reward from '../src/Components/Reward'
 import Redeem from '../src/Components/Redeem'
 import InvalidReward from '../src/Components/InvalidReward'
+import ThankYou from '../src/Components/ThankYou'
+import RedeemNormal from '../src/Components/RedeemNormal'
 import {
     BrowserRouter as Router,
         Routes,
@@ -11,6 +13,7 @@ import {
         Link
 } from 'react-router-dom';
 import NormalLogin from "./Components/NormalLogin";
+import logo from '../src/helpers/logo.svg';
 
 /* DOC:
 LINK: creates a Link
@@ -30,19 +33,25 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <h1>
-                        Collect Your Reward
-                    </h1>
+                    <img
+                        src={logo} className="app-logo" alt="logo" />
+                    {/*<h1>
+                        logo
+                    </h1>*/}
                     <ul>
                     </ul>
                     <Routes>
                         <Route exact path='/' element={< BlockchainLogin />}></Route>
                         <Route exact path='/blockchainReward/partnerAlfred' element={<BlockchainLogin/>}></Route>
-                        <Route exact path='/blockchainReward/2' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/blockchainReward/partnerHonig' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/blockchainReward/3' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/normalReward' element={< NormalLogin />}></Route>
-                        <Route exact path='/redeem/1' element={< Redeem />}></Route>
+                        <Route exact path='/redeemNFT/1' element={< Redeem />}></Route>
+                        <Route exact path='/redeemNFT/2' element={< Redeem />}></Route>
+                        <Route exact path='/redeemNormal/11' element={< RedeemNormal />}></Route>
+                        <Route exact path='/redeemNormal/12' element={< RedeemNormal />}></Route>
                         <Route exact path='/notvalid' element={< InvalidReward />}></Route>
+                        <Route exact path='/thankyou' element={< ThankYou />}></Route>
                     </Routes>
                 </div>
             </Router>

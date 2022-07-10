@@ -1,11 +1,13 @@
 package com.example.demo.Entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "NFTRewardGivenOut")
-public class NFTRewardGivenOut {
-
+@Table(name = "NFTRewardRedeemed")
+public class NFTRewardRedeemed {
     @Id
     @Column(name = "Id")
     private int Id;
@@ -22,23 +24,19 @@ public class NFTRewardGivenOut {
     @Column(name = "Location")
     private String Location;
 
-    public NFTRewardGivenOut(int id, String name, String image, String ifpsHash, String location) {
+    @Column(name = "Sales")
+    private int Sales;
+
+    public NFTRewardRedeemed(int id, String name, String image, String ifpsHash, String location, int sales) {
         Id = id;
         Name = name;
         Image = image;
         IfpsHash = ifpsHash;
         Location = location;
+        Sales = sales;
     }
 
-    public NFTRewardGivenOut() {
-    }
-
-    public String getLocation() {
-        return Location;
-    }
-
-    public void setLocation(String location) {
-        Location = location;
+    public NFTRewardRedeemed() {
     }
 
     public int getId() {
@@ -71,5 +69,21 @@ public class NFTRewardGivenOut {
 
     public void setIfpsHash(String ifpsHash) {
         IfpsHash = ifpsHash;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public int getSales() {
+        return Sales;
+    }
+
+    public void setSales(int sales) {
+        Sales = sales;
     }
 }

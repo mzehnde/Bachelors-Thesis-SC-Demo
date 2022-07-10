@@ -7,10 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface NormalRewardGivenOutRepository extends CrudRepository<NormalRewardGivenOut, Long> {
+public interface NormalRewardGivenOutRepository extends CrudRepository<NormalRewardGivenOut, Integer> {
 
 
     List<NormalRewardGivenOut> findAll();
+    NormalRewardGivenOut findById(int id);
 
 
 }

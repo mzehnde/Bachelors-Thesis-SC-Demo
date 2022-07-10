@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface NormalRewardRepository extends CrudRepository<NormalReward, Long> {
+public interface NormalRewardRepository extends CrudRepository<NormalReward, Integer> {
 
 
     List<NormalReward> findAll();

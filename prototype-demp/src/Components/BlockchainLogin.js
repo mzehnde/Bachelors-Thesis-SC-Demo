@@ -105,22 +105,21 @@ class BlockchainLogin extends React.Component{
     }
 
     async onSubmit(){
-        //Get as response: {id:value, hash:value} --> test it (populate pinata keyvalues)
-        //mintNFT(hashValue)
-        //API Call: delete from pinata (CID/Hashvalue)
-        //API Call: sendEmail(id) -> to find image we give id (nftrewardgivenoutrepo)
-        const response = await api.get(`/test/metadata/${window.location.pathname.substring(18)}`)
-        console.log(response)
-
-
-
-        //API CALL that makes new NFTRewardGivenOutENtity with metadata infos (body: metadata URL) and returns id
-        //API CALL 3 that sendsEmail from image to emailAdress (body: email, id --> to get image URL for Mail)
-        //Mint NFT here with return value from first call
-        //this.mintNFT("https://gateway.pinata.cloud/ipfs/QmVSk71DmVjjJSMbHcxKLxvR7wKYbbJX8rzJ2hFd4yFu8L")
-        /*if(this.emailValidation()){
-            this.sendReward();
-        }*/
+        if(this.emailValidation()) {
+            const response = await api.get(`/test/metadata/${window.location.pathname.substring(18)}`)
+            //this.mintNFT("https://gateway.pinata.cloud/ipfs/" + response.data.hash)
+            const requestBody = JSON.stringify({
+                ipfsHash: response.data.hash
+            });
+            const response2 = await api.put('/test/metadata/delete', requestBody)
+            const requestBody2 = JSON.stringify({
+                email: this.state.email,
+                id: response.data.id
+            });
+            const response3 = await api.post('/test/sendNFTEmail', requestBody2)
+            console.log(response3.data)
+            window.location.href="/reward"
+        }
     }
 
     async sendReward() {
@@ -142,13 +141,13 @@ class BlockchainLogin extends React.Component{
     }
 
     render(){
-        const paperStyle = {padding: 10, height:'35vh', width:230, margin: '20px auto' }
+        const paperStyle = {padding: 20, height:'37vh', width:230, margin: '20px auto', position:"center", elevation:25}
         const mailStyle = {position: "center"}
         const buttonStyle = {position:"center"}
 
         return (
             <Grid alignItems="center">
-                <Paper elevation={10} style={paperStyle}>
+                <Paper elevation={10} style={paperStyle} square={false}>
                     <EmailIcon fontSize="large" style={mailStyle}>
 
                     </EmailIcon>

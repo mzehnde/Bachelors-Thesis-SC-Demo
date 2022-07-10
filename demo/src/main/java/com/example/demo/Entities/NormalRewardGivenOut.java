@@ -7,8 +7,7 @@ import javax.persistence.*;
 public class NormalRewardGivenOut {
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private int Id;
 
     @Column(name = "Name")
     private String Name;
@@ -22,7 +21,7 @@ public class NormalRewardGivenOut {
     @Column(name = "Partner")
     private String Partner;
 
-    public NormalRewardGivenOut(Long id, String name, String image, String location, String partner) {
+    public NormalRewardGivenOut(int id, String name, String image, String location, String partner) {
         Id = id;
         Name = name;
         Image = image;
@@ -33,11 +32,11 @@ public class NormalRewardGivenOut {
     public NormalRewardGivenOut() {
     }
 
-    public Long getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         Id = id;
     }
 
@@ -63,5 +62,13 @@ public class NormalRewardGivenOut {
 
     public void setLocation(String location) {
         Location = location;
+    }
+
+    public String getPartner() {
+        return Partner;
+    }
+
+    public void setPartner(String partner) {
+        Partner = partner;
     }
 }
