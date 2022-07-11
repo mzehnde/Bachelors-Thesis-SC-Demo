@@ -15,6 +15,13 @@ import NormalLogin from "./Components/NormalLogin";
 import logo from '../src/helpers/logo.svg';
 import Reward from "./Components/Reward";
 
+//TO DO
+//add adressname and address link field --> to make adress that links to google maps
+//deploy
+//test it with rewards and qr codes
+//populate with real rewards and test
+//then DONE
+
 class App extends Component {
     render() {
         return (
