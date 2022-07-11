@@ -21,6 +21,10 @@ public class NormalReward {
     @Column(name = "Partner")
     private String Partner;
 
+    @Column(name = "Description")
+    private String Description;
+
+
 
 
     public NormalReward(String name) {
@@ -28,6 +32,14 @@ public class NormalReward {
     }
 
     public NormalReward() {
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getPartner() {

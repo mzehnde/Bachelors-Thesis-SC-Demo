@@ -9,10 +9,28 @@ public class MailContent {
     private String location;
     private String image;
     private String mailContent;
+    private String description;
 
-    public MailContent(String location, String QRCodeImage){
+    public MailContent(String location, String QRCodeImage, String description){
         this.location = location;
         this.image = QRCodeImage;
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLocation() {
@@ -233,8 +251,11 @@ public class MailContent {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">SIMPLY SHOW THE QR CODE&nbsp; FROM THIS E-MAIL AND WE WILL DO THE REST :)</span></span></em></p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center; mso-line-height-alt: 18px;\">&nbsp;</p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><strong><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">WHERE CAN YOU REDEEM YOUR REWARD?</span></span></strong></p>\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">BELOW YOU CAN FIND THE ADRESS WHERE YOU CAN REDEEM YOUR REWARD</span></span></em></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">BELOW YOU CAN FIND THE ADDRESS WHERE YOU CAN REDEEM YOUR REWARD</span></span></em></p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center; mso-line-height-alt: 18px;\">&nbsp;</p>\n" +
+               "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><strong><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">WHAT IS MY REWARD?</span></span></strong></p>\n" +
+               "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">"+this.description+"</span></span></em></p>\n" +
+               "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center; mso-line-height-alt: 18px;\">&nbsp;</p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +

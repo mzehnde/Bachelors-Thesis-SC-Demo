@@ -26,7 +26,12 @@ ROUTES: to render a single component -> iterates over the routes and renders fir
 *
 * */
 
-
+//add description for Email (db and NFT metadata)
+//refactor
+//styling all components
+//deploy
+//test on phone for scaling
+//test everything (populate dbs and pinata)
 
 class App extends Component {
     render() {
@@ -44,7 +49,7 @@ class App extends Component {
                         <Route exact path='/' element={< BlockchainLogin />}></Route>
                         <Route exact path='/blockchainReward/partnerAlfred' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/blockchainReward/partnerHonig' element={<BlockchainLogin/>}></Route>
-                        <Route exact path='/blockchainReward/3' element={<BlockchainLogin/>}></Route>
+                        <Route exact path='/blockchainReward/partner3' element={<BlockchainLogin/>}></Route>
                         <Route exact path='/normalReward' element={< NormalLogin />}></Route>
                         <Route exact path='/redeemNFT/1' element={< Redeem />}></Route>
                         <Route exact path='/redeemNFT/2' element={< Redeem />}></Route>

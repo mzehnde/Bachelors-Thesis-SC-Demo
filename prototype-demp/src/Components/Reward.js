@@ -2,12 +2,9 @@ import React from 'react';
 
 function Reward () {
     return <div>
-        <h2>GeeksforGeeks is a computer science portal for geeks!</h2>
+        <h2>Congratulations! We sent the reward with further instructions to your provided E-Mail address.</h2>
 
-        Read more about us at :
-        <a href="https://www.geeksforgeeks.org/about/">
-            https://www.geeksforgeeks.org/about/
-        </a>
+
     </div>
 }
 export default Reward;

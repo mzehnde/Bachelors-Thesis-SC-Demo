@@ -22,15 +22,27 @@ public class NFTRewardGivenOut {
     @Column(name = "Location")
     private String Location;
 
-    public NFTRewardGivenOut(int id, String name, String image, String ifpsHash, String location) {
+    @Column(name = "Description")
+    private String Description;
+
+    public NFTRewardGivenOut(int id, String name, String image, String ifpsHash, String location, String description) {
         Id = id;
         Name = name;
         Image = image;
         IfpsHash = ifpsHash;
         Location = location;
+        Description = description;
     }
 
     public NFTRewardGivenOut() {
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getLocation() {

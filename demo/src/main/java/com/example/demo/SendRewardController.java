@@ -72,7 +72,7 @@ public class SendRewardController {
 
         List<NormalReward> allNormalRewards = normalRewardRepository.findAll();
         NormalReward normalRewardToSend = allNormalRewards.get(0);
-        Mail email = new Mail(userToReceiveReward.getEmailAddress(), "claimyourawesomereward@gmail.com", normalRewardToSend.getImage(), normalRewardToSend.getLocation());
+        Mail email = new Mail(userToReceiveReward.getEmailAddress(), "claimyourawesomereward@gmail.com", normalRewardToSend.getImage(), normalRewardToSend.getLocation(), normalRewardToSend.getDescription());
         email.sendEmail();
         NormalRewardGivenOut normalRewardGivenOut = new NormalRewardGivenOut(normalRewardToSend.getId(), normalRewardToSend.getName(), normalRewardToSend.getImage(), normalRewardToSend.getLocation(), normalRewardToSend.getPartner());
         normalRewardGivenOutRepository.save(normalRewardGivenOut);
@@ -88,7 +88,7 @@ public class SendRewardController {
         String emailAddress = nftMail.getEmail();
 
         NFTRewardGivenOut nft = nftRewardGivenOutRepository.findById(NFTId);
-        Mail mail = new Mail(emailAddress, "claimyourawesomereward@gmail.com", nft.getImage(), nft.getLocation());
+        Mail mail = new Mail(emailAddress, "claimyourawesomereward@gmail.com", nft.getImage(), nft.getLocation(), nft.getDescription());
         mail.sendEmail();
         return "Email sent";
 
@@ -150,8 +150,9 @@ public class SendRewardController {
         int id = keyvalues.getInt("Id");
         String image = keyvalues.getString("Image");
         String location = keyvalues.getString("Location");
+        String description = keyvalues.getString("Description");
 
-        NFTRewardGivenOut nftRewardGivenOut = new NFTRewardGivenOut(id, name, image, ipfsHash, location);
+        NFTRewardGivenOut nftRewardGivenOut = new NFTRewardGivenOut(id, name, image, ipfsHash, location, description);
         nftRewardGivenOutRepository.save(nftRewardGivenOut);
 
         NFTGetDTO nftGetDTO=DTOMapper.INSTANCE.convertEntityToNFTGetDTO(nftRewardGivenOut);

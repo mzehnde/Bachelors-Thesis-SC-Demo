@@ -13,13 +13,15 @@ public class Mail {
     private String sender;
     private String image;
     private String location;
+    private String description;
 
 
-    public Mail(String recipient, String sender, String image, String location) {
+    public Mail(String recipient, String sender, String image, String location, String description) {
         this.recipient = recipient;
         this.sender = sender;
         this.image = image;
         this.location = location;
+        this.description = description;
     }
 
 
@@ -57,7 +59,7 @@ public class Mail {
 
     public void sendEmail() {
         String to = recipient;
-        MailContent mailContent = new MailContent(this.location, this.image);
+        MailContent mailContent = new MailContent(this.location, this.image, this.description);
         mailContent.generateHTMLContent();
 
         // Sender's email ID needs to be mentioned
