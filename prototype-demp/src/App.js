@@ -13,6 +13,7 @@ import {
 } from 'react-router-dom';
 import NormalLogin from "./Components/NormalLogin";
 import logo from '../src/helpers/logo.svg';
+import Reward from "./Components/Reward";
 
 class App extends Component {
     render() {
@@ -38,6 +39,7 @@ class App extends Component {
                         <Route exact path='/redeemNormal/12' element={< RedeemNormal />}></Route>
                         <Route exact path='/notvalid' element={< InvalidReward />}></Route>
                         <Route exact path='/thankyou' element={< ThankYou />}></Route>
+                        <Route exact path='/reward' element={< Reward />}></Route>
                     </Routes>
                 </div>
             </Router>

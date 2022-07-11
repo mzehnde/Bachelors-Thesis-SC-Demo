@@ -106,7 +106,7 @@ class BlockchainLogin extends React.Component {
       const response = await api.get(
         `/test/metadata/${window.location.pathname.substring(18)}`
       );
-      // this.mintNFT("https://gateway.pinata.cloud/ipfs/" + response.data.hash)
+      this.mintNFT("https://gateway.pinata.cloud/ipfs/" + response.data.hash)
       const requestBody = JSON.stringify({
         ipfsHash: response.data.hash,
       });

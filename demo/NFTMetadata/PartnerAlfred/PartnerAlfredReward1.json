@@ -16,7 +16,7 @@
     },
     "id": {
       "type": "integer",
-      "description": 2
+      "description": 1
     },
     "image": {
       "type": "string",
