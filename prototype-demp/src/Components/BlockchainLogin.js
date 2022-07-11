@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import SendIcon from '@mui/icons-material/Send';
 import { api, handleError } from '../helpers/api';
 import Grid from "@material-ui/core/Grid";
@@ -7,15 +6,9 @@ import Paper from "@material-ui/core/Paper";
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-//import {withRouter} from  'react-router-dom';
+
 
 //TODO:
-//LOCALLY:
-//1. fetch metadata from pinata --> backend
-//2. pass it to mintNFT
-//3. check if it works
-//4. add identifier to metadata --> if url =/blockchainReward/1: only take metadata with id 2 (other partner)
-
 //DEPLOY
 //1. Deploy on heroku --> consider: @origin, proxy, db...
 //2. generate QR Codes and populate DB
@@ -29,13 +22,13 @@ import Button from "@material-ui/core/Button";
 //3. new gmail account with "APP name"
 //4. scale for phone
 
-const API_URL = "https://eth-goerli.alchemyapi.io/v2/wR2HADjlUrTjeB-Rm7EKzWlL_6c6io2-"
+const API_URL = "https://eth-rinkeby.alchemyapi.io/v2/wR2HADjlUrTjeB-Rm7EKzWlL_6c6io2-"
 const PUBLIC_KEY = "0x6Adc4066eBB891bC7c92397051A46C5301Cc6fd8"
 const PRIVATE_KEY = "26a988e523d6e5defdd21917b5ef7c2541d698a22f84bc2e98238087a24e6bac"
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 const web3 = createAlchemyWeb3(API_URL)
 const contract = require("../artifacts/contracts/NFTRewards.sol/NFTRewards.json")
-const contractAddress = "0x6dadaF4B1aDe44337Ae315C82Aa7e6f98758F230"
+const contractAddress = "0x6dadaf4b1ade44337ae315c82aa7e6f98758f230"
 const nftContract = new web3.eth.Contract(contract.abi, contractAddress)
 
 class BlockchainLogin extends React.Component{
@@ -107,7 +100,7 @@ class BlockchainLogin extends React.Component{
     async onSubmit(){
         if(this.emailValidation()) {
             const response = await api.get(`/test/metadata/${window.location.pathname.substring(18)}`)
-            //this.mintNFT("https://gateway.pinata.cloud/ipfs/" + response.data.hash)
+            this.mintNFT("https://gateway.pinata.cloud/ipfs/" + response.data.hash)
             const requestBody = JSON.stringify({
                 ipfsHash: response.data.hash
             });

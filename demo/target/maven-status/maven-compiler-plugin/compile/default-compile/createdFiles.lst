@@ -18,6 +18,7 @@ com/example/demo/REST/NFTisRedeemedPutDTO.class
 com/example/demo/Repositories/NormalRewardGivenOutRepository.class
 com/example/demo/Entities/NFTMail.class
 com/example/demo/Entities/NormalRewardGivenOut.class
+com/example/demo/SendRewardService.class
 com/example/demo/Entities/NormalRewardRedeemed.class
 com/example/demo/REST/DTOMapper.class
 com/example/demo/REST/PartnerGetDTO.class
