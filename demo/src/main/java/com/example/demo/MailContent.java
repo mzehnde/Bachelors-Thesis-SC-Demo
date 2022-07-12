@@ -251,7 +251,7 @@ public class MailContent {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">SIMPLY SHOW THE QR CODE FROM THIS E-MAIL AND WE WILL DO THE REST :)</span></span></em></p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center; mso-line-height-alt: 18px;\">&nbsp;</p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><strong><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">WHERE CAN YOU REDEEM YOUR REWARD?</span></span></strong></p>\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">BELOW YOU CAN FIND A GOOGLE LINK. CLICK ON IT TO REVEAL THE LOCATION</span></span></em></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">BELOW YOU CAN FIND A GOOGLE LINK. CLICK ON \"SHOW LOCATION\" TO REVEAL IT.</span></span></em></p>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center; mso-line-height-alt: 18px;\">&nbsp;</p>\n" +
                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><strong><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">WHAT IS MY REWARD?</span></span></strong></p>\n" +
                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; text-align: center;\"><em><span style=\"color:#6d89bc;\"><span style=\"font-size:16px;\">"+this.description+"</span></span></em></p>\n" +
@@ -299,7 +299,7 @@ public class MailContent {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:20px;\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"font-family: sans-serif\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"txtTinyMce-wrapper\" style=\"font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2; font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;\">\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <h1> " + this.location+ "\n"+
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t <a href =  "+ this.location+">Show Location</a>\n"+
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +

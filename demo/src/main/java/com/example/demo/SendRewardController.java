@@ -52,7 +52,7 @@ public class SendRewardController {
         NormalRewardGivenOut normalRewardGivenOut = new NormalRewardGivenOut(normalRewardToSend.getId(), normalRewardToSend.getName(), normalRewardToSend.getImage(), normalRewardToSend.getLocation(), normalRewardToSend.getPartner());
         normalRewardGivenOutRepository.save(normalRewardGivenOut);
         normalRewardRepository.delete(normalRewardToSend);
-        return "NormalRewardRouting";
+        return normalRewardToSend.getDescription();
     }
 
     //Send Email with NFT Reward
